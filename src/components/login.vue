@@ -31,12 +31,14 @@
                             <input id="rememberme" name="rememberme" class="w-3 h-3 mr-2" type="checkbox" />
                             <label for="rememberme" class="text-xs">Remember Me</label>
                         </div>
-                        <router-link to="/forgotPassword"><a class="text-xs text-indigo-600" href="javascript: void(0)">Forgot Password?</a></router-link>
+                        <router-link to="forget-password"><a class="text-xs text-indigo-600" href="javascript: void(0)">Forgot Password?</a></router-link>
                     </div>
                     <div class="px-2 sm:mb-16 sm:px-6">
-                        <button  @click="loginUser()" class="focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6">Login to Your Account</button>
-                        <p class="mt-12 sm:mt-32 text-xs text-center">Don’t Have An Account? <router-link to="/signup"><a class="underline text-indigo-600" href="javascript: void(0)">Sign Up</a></router-link></p>
+                        <button  @click="loginUser()" class="focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6" :class="disabledButton">Login to Your Account</button>
+                        <p v-if="message" class="text-xl mt-5 text-center text-blue-600">Login Successfully</p>
+                        <p class="mt-12  text-xs text-center">Don’t Have An Account? <router-link to="/signup"><a class="underline text-indigo-600" href="javascript: void(0)">Sign Up</a></router-link></p>
                     </div>
+                    
                 </div>
             </form>
             <div class="w-full lg:w-1/2 bg-indigo-600 px-2 py-12 sm:p-12 flex flex-col relative">
@@ -76,6 +78,8 @@ export default {
         return{
             email:"",
             password:"",
+            disabledButton:"",
+            message:false
         }
     },
     created(){
@@ -85,11 +89,17 @@ export default {
     },
     methods: {
         async loginUser (){
+            this.disabledButton="opacity-50 cursor-not-allowed"
            const { user, session, error } = await supabase.auth.signIn({
   email: this.email,
   password: this.password,
 }) 
 console.log(user,session, error)
+if(session.access_token!='')
+{
+    this.message=true
+}
+this.disabledButton=""
         },
 
         

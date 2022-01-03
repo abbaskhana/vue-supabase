@@ -34,7 +34,7 @@
                         <a class="text-xs text-indigo-600" href="javascript: void(0)">Forgot Password?</a>
                     </div> -->
                     <div class="px-2 sm:mb-16 sm:px-6">
-                        <button @click="signupUser()" class="focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6">Sign Up to Your Account</button>
+                        <button @click="signupUser()" class="focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6" :class="disabledButton">Sign Up to Your Account</button>
                         <!-- <p class="mt-12 sm:mt-32 text-xs text-center">Don’t Have An Account? <a class="underline text-indigo-600" href="javascript: void(0)">Sign Up</a></p> -->
                     </div>
                 </div>

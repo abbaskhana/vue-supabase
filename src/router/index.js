@@ -16,7 +16,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Signup.vue')
   },
   {
-    path: '/forgotPassword',
+    path: '/forget-password',
     name: 'ForgotPassword',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

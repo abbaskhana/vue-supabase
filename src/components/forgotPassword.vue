@@ -30,7 +30,8 @@
                         <a class="text-xs text-indigo-600" href="javascript: void(0)">Forgot Password?</a>
                     </div> -->
                     <div class="px-2 sm:mb-16 sm:px-6">
-                        <button @click="changePassword()" class="focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6">Submit</button>
+                        <button @click="changePassword()" class="focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6" :class="disabledButton">Submit</button>
+                        <p v-if="message" class="text-xl mt-5 text-center text-blue-600">Check your email</p>
                         <!-- <p class="mt-12 sm:mt-32 text-xs text-center">Don’t Have An Account? <a class="underline text-indigo-600" href="javascript: void(0)">Sign Up</a></p> -->
                     </div>
                 </div>
@@ -70,7 +71,9 @@ import { supabase } from '@/supabaseClient.js'
 export default {
     data(){
         return{
-            email:""
+            email:"",
+            disabledButton:"",
+            message:false
         }
     },
     created(){
@@ -80,11 +83,17 @@ export default {
     },
     methods: {
         async changePassword (){
+            this.disabledButton="opacity-50 cursor-not-allowed"
            const { data, error } = await supabase.auth.api
   .resetPasswordForEmail(this.email,{
       redirectTo:"https://supabase-seven-kappa.vercel.app"
   })
 console.log(data, error)
+if(data!='')
+{
+    this.message=true
+}
+this.disabledButton=""
         },
     },
 };

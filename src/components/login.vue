@@ -36,6 +36,7 @@
                     <div class="px-2 sm:mb-16 sm:px-6">
                         <button  @click="loginUser()" class="focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6" :class="disabledButton">Login to Your Account</button>
                         <p v-if="message" class="text-xl mt-5 text-center text-blue-600">Login Successfully</p>
+                        <p class="text-xl mt-5 text-center text-red-600">{{messageError}}</p>
                         <p class="mt-12  text-xs text-center">Don’t Have An Account? <router-link to="/signup"><a class="underline text-indigo-600" href="javascript: void(0)">Sign Up</a></router-link></p>
                     </div>
                     
@@ -79,7 +80,8 @@ export default {
             email:"",
             password:"",
             disabledButton:"",
-            message:false
+            message:false,
+            messageError:""
         }
     },
     created(){
@@ -95,11 +97,16 @@ export default {
   password: this.password,
 }) 
 console.log(user,session, error)
-if(session.access_token!='')
+if(session!=null)
 {
     this.message=true
 }
+if(error!=null)
+{
+    this.messageError=error.message
+}
 this.disabledButton=""
+
         },
 
         

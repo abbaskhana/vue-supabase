@@ -82,7 +82,7 @@ export default {
         async changePassword (){
            const { data, error } = await supabase.auth.api
   .resetPasswordForEmail(this.email,{
-      redirectTo:"http://localhost:8080/newPassword"
+      redirectTo:"https://supabase-seven-kappa.vercel.app"
   })
 console.log(data, error)
         },
